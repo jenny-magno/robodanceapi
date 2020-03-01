@@ -8,18 +8,27 @@ Make sure you have [Node.js](https://nodejs.org) installed. You should also have
     git clone https://github.com/jenny-magno/robodanceapi.git
     npm install
 
+## Run the tests
+
+The tests will be using the `robodancedb-test` database. 
+You can opt to change this by setting the `MONGODB_URL` field in the `.env` file. 
+
+    npm test
+
 ## Run the app
 
     npm start
 
 The application should now be running on [localhost:3001](localhost:3001).
 
-## Run the tests
 
-The tests will be using the `robodancedb` database. 
-You can opt to change this by setting the `MONGODB_URL` field in the `.env` file. 
+## Initializing data
 
-    npm test
+If you want sample robots to be populated in the `robodancedb` database, set the following in the `.env` file.
+
+    INIT_ROBOTS_IF_EMPTY=Y
+
+This will populate the robots collection on startup if the collection is empty. 
 
 ## Future Work
 Developments planned for this application include:

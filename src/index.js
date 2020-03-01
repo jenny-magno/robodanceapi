@@ -6,8 +6,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const routes = require('./routes');
 
-const logger = require('./services/log');
-global.logger = logger;
+const log = require('./services/log');
+global.log = log;
 
 require('dotenv').config();
 
@@ -20,7 +20,9 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.use(cors());
-app.use(morgan('combined'));
+if (app.get('env') !== 'test') {
+  app.use(morgan('combined'));
+}
 
 app.use('/', routes);
 
@@ -37,9 +39,10 @@ const connectDb = async() => {
 
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-  if (process.env.INIT_ROBOTS === 'Y') {
-    const robots = require('../scripts/robots');
-    await robots.rebuild();
+
+  if (process.env.INIT_ROBOTS_IF_EMPTY === 'Y') {
+    const helper = require('./scripts/helper');
+    await helper.addRobotsIfEmpty();
   }
 };
 
@@ -47,9 +50,12 @@ connectDb().then(async() => {
   const port = process.env.PORT || 3001;
   app.listen(port, () =>
     console.log(`ROBODANCE API
-    [START] App running on port ${port}`),
+    App running on port ${port}
+    `),
   );
 }).catch(e => {
   console.log(`Error starting application:
    ${e}`);
 });
+
+module.exports = app;

@@ -7,8 +7,7 @@ module.exports.holdDanceoff = async(req, res) => {
     const result = await danceoffService.holdDanceoff(req.body.teams);
     res.status(201).json(result);
   } catch (e) {
-    res.statusMessage = e;
-    res.status(500).end();
+    res.status(e.status||500).send(e.data()||e);
   }
 };
 
@@ -19,8 +18,7 @@ module.exports.findAllDanceoffs = async(req, res) => {
 
     res.json(result);
   } catch (e) {
-    res.statusMessage = e;
-    res.status(500).end();
+    res.status(e.status||500).send(e.data()||e);
   }
 };
 
@@ -31,8 +29,7 @@ module.exports.findDanceoffsByRobot = async(req, res) => {
 
     res.json(result);
   } catch (e) {
-    res.statusMessage = e;
-    res.status(500).end();
+    res.status(e.status||500).send(e.data()||e);
   }
 };
 

@@ -10,8 +10,7 @@ module.exports.findRobotsById = async(req, res) => {
     }
     res.json(result);
   } catch (e) {
-    res.statusMessage = e;
-    res.status(500).end();
+    res.status(e.status||500).send(e.data()||e);
   }
 };
 
@@ -21,8 +20,7 @@ module.exports.findAllRobots = async(req, res) => {
     const result = await robotService.findAll(working);
     res.json(result);
   } catch (e) {
-    res.statusMessage = e;
-    res.status(500).end();
+    res.status(e.status||500).send(e.data()||e);
   }
 };
 

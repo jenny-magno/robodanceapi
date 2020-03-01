@@ -1,6 +1,7 @@
 'use strict';
 
 const {Danceoff, Robot} = require('../models').models;
+const ValidationError = require('../errors/validation');
 const ERR = require('../config/errors');
 const MATCH = require('../config/match');
 
@@ -35,18 +36,18 @@ module.exports.findByRobotId = async(robotId) => {
 
 module.exports.holdDanceoff = async(teams) => {
   if (!teams) {
-    throw new Error(ERR.MSG.EMPTY_TEAMS);
+    throw new ValidationError(ERR.MSG.EMPTY_TEAMS);
   }
   if (teams.length !== MATCH.PROPS.TEAM_COUNT) {
-    throw new Error(ERR.MSG.INCORRECT_TEAM_COUNT);
+    throw new ValidationError(ERR.MSG.INCORRECT_TEAM_COUNT);
   }
   teams.forEach(team => {
     if (team.length !== MATCH.PROPS.TEAM_SIZE) {
-      throw new Error(ERR.MSG.INCORRECT_TEAM_SIZE);
+      throw new ValidationError(ERR.MSG.INCORRECT_TEAM_SIZE);
     }
   });
   if (!isAllUnique([].concat(...teams))) {
-    throw new Error(ERR.MSG.DUPLICATE_ROBOT);
+    throw new ValidationError(ERR.MSG.DUPLICATE_ROBOT);
   }
 
   let battles = [];
@@ -63,10 +64,10 @@ module.exports.holdDanceoff = async(teams) => {
 const battle = async(robotIds) => {
   const [firstRobot, secondRobot] = await Robot.findByIds(robotIds);
   if (firstRobot == null || secondRobot == null) {
-    throw new Error(ERR.MSG.NULL_ROBOT);
+    throw new ValidationError(ERR.MSG.NULL_ROBOT);
   }
   if (firstRobot.id === secondRobot.id) {
-    throw new Error(ERR.MSG.SELF_BATTLE);
+    throw new ValidationError(ERR.MSG.SELF_BATTLE);
   }
 
   let [winner, loser] = matchUp(firstRobot, secondRobot);

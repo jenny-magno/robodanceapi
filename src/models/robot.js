@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 
-const robotSchema = new Schema({
+const robotData = {
   name: String,
   powermove: String,
   experience: Number,
@@ -13,7 +13,8 @@ const robotSchema = new Schema({
     default: false,
   },
   avatar: String,
-});
+};
+const robotSchema = new Schema(robotData);
 
 robotSchema.statics.findAll = async function(working) {
   let filter = {};
@@ -86,3 +87,4 @@ robotSchema.statics.updateExperience = async function(winnerId, loserId, expInc)
 
 const Robot = mongoose.model('Robot', robotSchema);
 module.exports = Robot;
+module.exports.robotData = robotData;

@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Types.ObjectId;
 const mergeByKey = require('array-merge-by-key');
+const Robot = require('./robot');
 
 
 const danceoffSchema = new Schema({
@@ -12,12 +13,15 @@ const danceoffSchema = new Schema({
 });
 
 const hideVersioning = {
-    "__v": 0
+  __v: 0,
 };
 
 danceoffSchema.statics.getLeaderBoard = async function(sort) {
-  let [wins, losses] = await Promise.all([this.getWinCounts(), this.getLossCounts()]);
-  let result = mergeById(wins, losses);
+  let [robots, wins, losses] = await Promise.all([
+    Robot.findAll(),
+    this.getWinCounts(),
+    this.getLossCounts()]);
+  let result = mergeById(robots, wins, losses);
   sortItems(result, sort);
   return result;
 };
@@ -90,12 +94,23 @@ const sortItems = (result, sort) => {
   });
 };
 
-const mergeById = (wins, losses) => {
+const mergeById = (robots, wins, losses) => {
+  const mergeKey = '_id';
   let merged = mergeByKey(
-    '_id', wins.map(win => {
+    mergeKey,
+    robots.map(robot => {
+      let bot = {};
+      Object.keys(Robot.robotData).forEach(key => {
+        bot[key] = robot[key];
+      });
+      bot[mergeKey] = robot[mergeKey].toString();
+      return bot;
+    }),
+    wins.map(win => {
       win._id = win._id.toString();
       return win;
-    }), losses.map(loss => {
+    }),
+    losses.map(loss => {
       loss._id = loss._id.toString();
       return loss;
     }));

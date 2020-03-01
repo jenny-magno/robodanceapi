@@ -5,7 +5,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const routes = require('./routes');
+
 const logger = require('./services/log');
+global.logger = logger;
 
 require('dotenv').config();
 

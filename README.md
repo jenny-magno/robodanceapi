@@ -5,7 +5,7 @@ This is an application providing REST API for robot dance battles.
 ## Set up the app
 Make sure you have [Node.js](https://nodejs.org) installed. You should also have [Mongo DB](https://www.mongodb.com/) installed and running locally.
 
-    git clone repo-url
+    git clone https://github.com/jenny-magno/robodanceapi.git
     npm install
 
 ## Run the app
@@ -16,9 +16,21 @@ The application should now be running on [localhost:3001](localhost:3001).
 
 ## Run the tests
 
+The tests will be using the `robodancedb` database. 
+You can opt to change this by setting the `MONGODB_URL` field in the `.env` file. 
+
     npm test
 
-# REST API
+## Future Work
+Developments planned for this application include:
+
+- Additional validations and test data
+- Customizable input data (number of teams in a battle, number of robots in a team, etc)
+- More verbose logging system
+- Containerization through Docker
+- Authorization for API users 
+
+# API Documentation
 
 The REST API to the Robodance app is described below.
 
@@ -53,12 +65,25 @@ working | **Optional**. *Defaults to false.* <br> When set to `true`, only Robot
 
 `HTTP/1.1 200 OK`
 
-    [{
-
-    }, 
-    {
-
-    }]
+    [
+      {
+        "_id": "5e56c061080dad1df1660934",
+        "name": "Koya",
+        "powermove": "sleep",
+        "experience": 0,
+        "outOfOrder": false,
+        "avatar": "s3.marpple.co/files/u_14355/2019/8/150/f_669130_1565312952620_gOyNo4tLRVZJT1bz9N.png"
+      },
+      {
+        "_id": "5e56c061080dad1df1660935",
+        "name": "RJ",
+        "powermove": "eat",
+        "experience": 0,
+        "outOfOrder": false,
+        "avatar": "s3.marpple.co/files/u_14355/2019/8/150/f_669758_1565312952620_wF5IGb3sFyE5q0L3h1gpO.png"
+      },
+      ... 
+    ]
     
 ## GET /robots/{id}
 - Returns a Robot with the ID specified
@@ -171,12 +196,22 @@ sort | **Optional**.<br> <br> `wins` sorts danceoffs by count of wins (descendin
     [
       {
         "_id": "5e56c061080dad1df1660934",
-        "wins": 4,
+        "name": "Koya",
+        "powermove": "sleep",
+        "experience": 24,
+        "outOfOrder": false,
+        "avatar": "s3.marpple.co/files/u_14355/2019/8/150/f_669130_1565312952620_gOyNo4tLRVZJT1bz9N.png",
+        "wins": 6,
         "losses": 3
       },
       {
-        "_id": "5e56c061080dad1df1660939",
-        "wins": 3,
+        "_id": "5e56c061080dad1df1660936",
+        "name": "Shooky",
+        "powermove": "plot and plan",
+        "experience": 19,
+        "outOfOrder": false,
+        "avatar": "s3.marpple.co/files/u_14355/2019/8/150/f_669350_1565312952620_k8W5ACnDeFMAk8Z1R5d0a.png",
+        "wins": 6,
         "losses": 3
       },
       ...

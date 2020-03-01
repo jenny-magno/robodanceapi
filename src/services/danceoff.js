@@ -1,7 +1,6 @@
 'use strict';
 
 const {Danceoff, Robot} = require('../models').models;
-const logger = require('winston');
 const ERR = require('../config/errors');
 const MATCH = require('../config/match');
 
@@ -28,9 +27,8 @@ module.exports.findByRobotId = async(robotId) => {
       result: danceoff.winner._id.toString() === robotId ? 'win' : 'loss',
       winner: danceoff.winner,
       loser: danceoff.loser,
-    }
-    
-    console.log(withResult)
+    };
+
     return withResult;
   });
 };
@@ -51,14 +49,15 @@ module.exports.holdDanceoff = async(teams) => {
     throw new Error(ERR.MSG.DUPLICATE_ROBOT);
   }
 
-  const battles = [];
+  let battles = [];
   for (let i = 0; i < MATCH.PROPS.TEAM_SIZE; i++) {
-    let battleResult = await battle([teams[0][i], teams[1][i]]);
+    let battleResult = battle([teams[0][i], teams[1][i]]);
     battles.push(battleResult);
   }
 
+  battles = await Promise.all(battles);
   await Danceoff.saveResults(battles);
-  return {result: battles};
+  return battles;
 };
 
 const battle = async(robotIds) => {

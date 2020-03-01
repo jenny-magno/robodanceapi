@@ -1,13 +1,12 @@
 'use strict';
 
-let robots = require('../data/robots.json');
+let robots = require('./robots.json');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 
-const Robot = require('../src/models/robot');
+const Robot = require('../models/robot');
 
-module.exports.rebuild = async() => {
-  await Robot.find().deleteMany();
+module.exports.addRobots = async() => {
   const modRobots = robots.map((robot) => {
     robot._id = ObjectId(robot._id);
     return robot;

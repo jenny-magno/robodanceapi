@@ -70,7 +70,7 @@ working | **Optional**. *Defaults to false.* <br> When set to `true`, only Robot
 
 ### Sample Request 
 
-    curl -X GET -H 'Accept: application/json' http://localhost:3001/robots?working=true
+    curl -X GET -H 'Accept:application/json' http://localhost:3001/robots?working=true
 
 ### Sample Response
 
@@ -107,7 +107,7 @@ id | ID of the Robot to be retrieved | `5e56c061080dad1df1660934`
 
 ### Sample Request
 
-    curl -X GET -H 'Accept: application/json' http://localhost:3001/robots/5e56c061080dad1df1660934
+    curl -X GET -H 'Accept:application/json' http://localhost:3001/robots/5e56c061080dad1df1660934
 
 ### Sample Response for Existing Robot
 
@@ -140,9 +140,10 @@ Field | Description | Example
 teams | An array of teams.<br> Each team is an array containing robot IDs playing for the team | `[[` <br>` "5e5b55aeafb39a2711e4ca42", "5e56c061080dad1df1660934", "5e56c061080dad1df1660935", "5e56c061080dad1df1660936", "5e56c061080dad1df1660937"` <br>` ], [` <br>` "5e56c061080dad1df1660938", "5e56c061080dad1df1660939", "5e56c061080dad1df1660940", "5e56c061080dad1df1660941", "5e5b55aeafb39a2711e4ca43"` <br>` ]]`
 
 ### Sample Request
+If you're using Windows Command Prompt, make sure to use double quotes for the request options and escape the special characters in the request body.
 
-    curl -X POST -H 'Accept: application/json' http://localhost:3001/danceoffs -d \
-    '{
+    curl -X POST -H 'Content-Type:application/json' http://localhost:3001/danceoffs \
+    -d '{
       "teams": [
         [
           "5e5b55aeafb39a2711e4ca42",
@@ -198,7 +199,7 @@ sort | **Optional**.<br> <br> `wins` sorts danceoffs by count of wins (descendin
 
 ### Sample Request
 
-    curl -X GET -H 'Accept: application/json' http://localhost:3001/danceoffs?sort=wins
+    curl -X GET -H 'Accept:application/json' http://localhost:3001/danceoffs?sort=wins
 
 ### Response
 
@@ -239,7 +240,7 @@ id | ID of the Robot whose Danceoffs are to be retrieved | `5e56c061080dad1df166
 
 ### Sample Request
 
-    curl -X GET -H 'Accept: application/json' http://localhost:3001/danceoffs/5e56c061080dad1df1660934
+    curl -X GET -H 'Accept:application/json' http://localhost:3001/danceoffs/5e56c061080dad1df1660934
 
 ### Response
 - The response includes a result flag that indicates if the selected robot had a `win` or a `loss` for that danceoff

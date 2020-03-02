@@ -31,6 +31,15 @@ If you want sample robots to be populated in the `robodancedb` database, set the
 
 This will populate the robots collection on startup if the collection is empty. 
 
+## Robot Danceoffs 
+
+Robots with more experience points win danceoff battles. However, robots within `10` experience points from each other will have a luck factor involved in their battle.
+
+| Battle Result | Experience Points Awarded |
+|---|---|
+| Win | 2 |
+| Loss | 1 | 
+
 ## Future Work
 Developments planned for this application include:
 

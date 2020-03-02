@@ -6,6 +6,7 @@ This is an application providing REST API for robot dance battles.
 Make sure you have [Node.js](https://nodejs.org) installed. You should also have [Mongo DB](https://www.mongodb.com/) installed and running locally.
 
     git clone https://github.com/jenny-magno/robodanceapi.git
+    cd robodanceapi
     npm install
 
 ## Run the tests

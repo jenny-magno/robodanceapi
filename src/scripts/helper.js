@@ -14,7 +14,6 @@ module.exports.addRobots = async() => {
 
 module.exports.addRobotsIfEmpty = async() => {
   const bots = await Robot.find();
-  console.log(bots.length);
   if (bots.length === 0) {
     await this.addRobots();
   }

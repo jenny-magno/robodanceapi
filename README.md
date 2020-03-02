@@ -7,6 +7,7 @@ Make sure you have [Node.js](https://nodejs.org) installed. You should also have
 
     git clone https://github.com/jenny-magno/robodanceapi.git
     cd robodanceapi
+
     npm install
 
 ## Run the tests
@@ -20,8 +21,7 @@ You can opt to change this by setting the `MONGODB_URL` field in the `.env` file
 
     npm start
 
-The application should now be running on [localhost:3001](localhost:3001).
-
+The application should now be running on [localhost:3001](localhost:3001). You can also specify the `PORT` of the application in the `.env` file.
 
 ## Initializing data
 
@@ -38,7 +38,8 @@ Developments planned for this application include:
 - Customizable input data (number of teams in a battle, number of robots in a team, etc)
 - More verbose logging system
 - Containerization through Docker
-- Authorization for API users 
+- Authorization for API users
+- Hosting the API through Heroku
 
 # API Documentation
 
